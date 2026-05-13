@@ -379,6 +379,69 @@ nav a:hover { color: var(--text); }
 .skill-tile h3 { font-size: 0.96rem; font-weight: 600; margin-bottom: 0.4rem; }
 .skill-tile p { font-size: 0.83rem; font-weight: 300; color: var(--muted); line-height: 1.5; }
 
+/* QGIS GALLERY */
+.qgis-section { margin-top: 2.5rem; }
+.qgis-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--highlight);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.qgis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.qgis-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--bg2);
+}
+.qgis-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.qgis-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.qgis-card-caption {
+  padding: 0.65rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+}
+.lightbox-close:hover { opacity: 1; }
+
 /* CONNECT */
 .connect-row {
   display: flex;
@@ -491,7 +554,7 @@ footer a { color: var(--highlight); text-decoration: none; font-weight: 500; }
       <!-- To use your photo, replace the photo-frame div's contents with:
            <img src="your-photo.jpg" alt="Your Name"> -->
       <div class="photo-frame">
-        <img src="PhotoMe.jpg" alt="Fahrtin Assenov">
+        <img src="Images/PhotoMe.jpg" alt="Fahrtin Assenov">
       </div>
         </svg>
         <p></p>
@@ -603,6 +666,34 @@ footer a { color: var(--highlight); text-decoration: none; font-weight: 500; }
       <p>Practised and used the scrum method in group project for Kartverket. </p>
     </div>
   </div>
+
+  <div class="qgis-section">
+    <div class="qgis-label">GIS / QGIS Maps</div>
+    <div class="qgis-grid">
+      <div class="qgis-card" onclick="openLightbox('Images/trafficaccidentshex.png')">
+        <img src="Images/trafficaccidentshex.png" alt="Number of Traffic Accidents by Hexagon Grid">
+        <div class="qgis-card-caption">Traffic Accidents — Hexagon Grid</div>
+      </div>
+      <div class="qgis-card" onclick="openLightbox('Images/firestation.png')">
+        <img src="Images/firestation.png" alt="Fire Station Coverage by Dong in Seoul">
+        <div class="qgis-card-caption">Fire Station Coverage by Dong — Seoul</div>
+      </div>
+      <div class="qgis-card" onclick="openLightbox('Images/MAP2.png')">
+        <img src="Images/MAP2.png" alt="Traffic Accidents within 911 Station Service Areas">
+        <div class="qgis-card-caption">Traffic Accidents — 911 Service Areas</div>
+      </div>
+      <div class="qgis-card" onclick="openLightbox('Images/youngadults.png')">
+        <img src="Images/youngadults.png" alt="% of Young Adults in Seoul">
+        <div class="qgis-card-caption">% of Young Adults — Seoul</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
 <hr class="section-divider">
@@ -671,6 +762,21 @@ footer a { color: var(--highlight); text-decoration: none; font-weight: 500; }
   <span>© 2026 Your Name</span>
   <span>Hosted free on <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a></span>
 </footer>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e) e.stopPropagation();
+  document.getElementById('lightbox').classList.remove('active');
+  document.getElementById('lightbox-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
 
 </body>
 </html>
