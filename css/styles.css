@@ -115,7 +115,7 @@ nav.main-nav .nav-item.active {
   border-bottom-color: var(--color-accent);
 }
 
-.nav-dropdown { position: relative; }
+.nav-dropdown { position: relative; display: flex; align-items: stretch; }
 .nav-dropdown-menu {
   position: absolute;
   top: 100%;
