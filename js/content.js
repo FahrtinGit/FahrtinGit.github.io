@@ -52,7 +52,7 @@ const CONTENT = {
     facts: [
       { k: "Oppdragsgiver", v: "IK Start" },
       { k: "Periode", v: "Aug — des 2026" },
-      { k: "Kontaktperson", v: "Fylles inn" },
+      { k: "Kontaktperson", v: "" },
       { k: "Veileder", v: "Fylles inn" },
     ],
   },
@@ -62,7 +62,7 @@ const CONTENT = {
   // de gule initialene automatisk i stedet — du trenger ikke fjerne
   // "img"-linjen selv om bildet ikke er lastet opp ennå.
   team: [
-    { initials: "FA", name: "Fahrtin Assenov", role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Fahrtin.jpg" },
+    { initials: "FA", name: "Fahrtin Assenov", role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/fahrtin", img: "images/om-oss/Fahrtin.jpg" },
     { initials: "DA", name: "Dawit Andom",     role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Dawit.jpg" },
     { initials: "EN", name: "Elias Nahiry",    role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Elias.jpg" },
   ],
@@ -124,7 +124,7 @@ const CONTENT = {
       { title: "Hva vi ville gjort annerledes", body: "Fyll inn: ett konkret valg vi ville tatt på nytt." },
     ],
     quoteLabel: "Å skrive er å tenke",
-    quote: "Dagboken gjorde valgene våre synlige — også de vi forkastet.",
+    quote: "Legg in skrift her",
   },
 
   footer: {
