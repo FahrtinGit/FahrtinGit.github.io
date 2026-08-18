@@ -66,7 +66,7 @@ const CONTENT = {
     { initials: "DA", name: "Dawit Andom",     role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Dawit.jpg" },
     { initials: "EN", name: "Elias Nahiry",    role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Elias.jpg" },
   ],
-  teamNote: "Bilder hentes fra mappen images/om-oss/ — legg til Fahrtin.jpg, Dawit.jpg og Elias.jpg der, så vises de automatisk i stedet for bokstavene.",
+  // "Bilder hentes fra mappen images/om-oss/ — legg til Fahrtin.jpg, Dawit.jpg og Elias.jpg der, så vises de automatisk i stedet for bokstavene.",
 
   diaryIntro: "En løpende logg som skrives mens arbeidet gjøres — hva vi gjorde, hvilke alternativer vi vurderte, og hva vi valgte.",
 
