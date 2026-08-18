@@ -52,8 +52,8 @@ const CONTENT = {
     facts: [
       { k: "Oppdragsgiver", v: "IK Start" },
       { k: "Periode", v: "Aug — des 2026" },
-      { k: "Kontaktperson", v: "" },
-      { k: "Veileder", v: "Fylles inn" },
+      { k: "Kontaktperson", v: "Stig Nicolai Kolding" },
+      { k: "Veileder", v: "Geir Inge Hausvik & Hallgeir Nilsen" },
     ],
   },
 
