@@ -65,8 +65,8 @@ const CONTENT = {
   // "img"-linjen selv om bildet ikke er lastet opp ennå.
   team: [
     { initials: "FA", name: "Fahrtin Assenov", role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/fahrtin/", img: "images/om-oss/Fahrtin.jpg" },
-    { initials: "DA", name: "Dawit Andom",     role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Dawit.jpg" },
-    { initials: "EN", name: "Elias Nahiry",    role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/", img: "images/om-oss/Elias.jpg" },
+    { initials: "DA", name: "Dawit Andom",     role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/dawit-andom-787199243", img: "images/om-oss/Dawit.jpg" },
+    { initials: "EN", name: "Elias Nahiry",    role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/elias-nahiry-025734388/", img: "images/om-oss/Elias.jpg" },
   ],
   // "Bilder hentes fra mappen images/om-oss/ — legg til Fahrtin.jpg, Dawit.jpg og Elias.jpg der, så vises de automatisk i stedet for bokstavene.",
 
