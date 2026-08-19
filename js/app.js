@@ -127,8 +127,6 @@ function pageTask() {
           <p>${esc(t.intro)}</p>
           <h3>${esc(t.goalsTitle)}</h3>
           <ul>${t.goals.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>
-          <h3>${esc(t.framesTitle)}</h3>
-          <p>${esc(t.frames)}</p>
         </div>
         <aside class="aside-box">
           <div class="aside-title">${esc(t.factsTitle)}</div>

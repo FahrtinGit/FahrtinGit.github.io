@@ -38,16 +38,18 @@ const CONTENT = {
   ],
 
   task: {
-    intro: "Vi skal utvikle og dokumentere en digital løsning for IK Start i løpet av praksisperioden. Arbeidet følger klubbens visuelle identitet — svart og gult — og skal leveres sammen med prosjektdagbok, to statusrapporter og en avsluttende refleksjon.",
+    intro: "Vi skal utvikle en AI-basert løsning som automatiserer et problem der et team må gå gjennom video- og lydopptak fra treningsøktene og manuelt kode inn forskjellige data fra treningsøkta. Denne manuelle prosessen er tidkrevende og lar seg vanskelig skalere etter hvert som mengden opptak øker. Først og fremst skal vi fokusere på noen få av inputtene som ligger under våre \"Mål\".",
     goalsTitle: "Mål",
     goals: [
       "Kartlegge behovet sammen med kontaktpersonen i klubben.",
       "Lage et forslag til løsning, med begrunnede valg.",
       "Utvikle, teste og dokumentere løsningen.",
       "Presentere resultatet for klubb og skole.",
+      "Synkronisere video og lyd fra treningsøktene som ett datagrunnlag.",
+      "Automatisk teksting av video med tidsstempler.",
+      "Registrere når ballen er i spill vs. ikke i spill («ball rolling» on/off), med tidsstempler.",
+      "Registrere stillhet vs. tale («silence» on/off), med tidsstempler.",
     ],
-    framesTitle: "Rammer",
-    frames: "Fyll inn avtalt omfang, antall praksisdager, kontaktperson hos IK Start og veileder på skolen her.",
     factsTitle: "Fakta",
     facts: [
       { k: "Oppdragsgiver", v: "IK Start" },
@@ -75,7 +77,7 @@ const CONTENT = {
   // "choice" er valgfri — la den stå tom ("") hvis det ikke er noen
   // konkret vurdering å trekke fram den uka.
   diary: [
-    { week: "Uke 34", date: "18.08.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
+    { week: "Uke 34", date: "19.08.2026", updated: true, body: "Første dag i praksis. Vi ble kjent med lokalet og ble bedre kjent med de ansatte og arbeidsplassen. Snakket om oppgaven og begynte planleggingen av semesteret — hva vi skal jobbe med utover høsten.", choice: "" },
     { week: "Uke 35", date: "25.08.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
     { week: "Uke 36", date: "01.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
     { week: "Uke 37", date: "08.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
