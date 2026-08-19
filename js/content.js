@@ -42,9 +42,6 @@ const CONTENT = {
     goalsTitle: "Mål",
     goals: [
       "Kartlegge behovet sammen med kontaktpersonen i klubben.",
-      "Lage et forslag til løsning, med begrunnede valg.",
-      "Utvikle, teste og dokumentere løsningen.",
-      "Presentere resultatet for klubb og skole.",
       "Synkronisere video og lyd fra treningsøktene som ett datagrunnlag.",
       "Automatisk teksting av video med tidsstempler.",
       "Registrere når ballen er i spill vs. ikke i spill («ball rolling» on/off), med tidsstempler.",
