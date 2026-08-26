@@ -75,7 +75,7 @@ const CONTENT = {
   // konkret vurdering å trekke fram den uka.
   diary: [
     { week: "Uke 34", date: "19.08.2026", updated: true, body: "Første dag i praksis. Vi ble kjent med lokalet og ble bedre kjent med de ansatte og arbeidsplassen. Snakket om oppgaven og begynte planleggingen av semesteret — hva vi skal jobbe med utover høsten.", choice: "" },
-    { week: "Uke 35", date: "25.08.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
+    { week: "Uke 35", date: "26.08.2026", updated: true, body: "Satt opp oppgaver i Trello som vi kan jobbe med videre, gjort mer research for toolkits vi kan bruke for video- og lydsync. Snakket om hva vi tenker før vi møtes neste gang.", choice: "" },
     { week: "Uke 36", date: "01.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
     { week: "Uke 37", date: "08.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
     { week: "Uke 38", date: "15.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
