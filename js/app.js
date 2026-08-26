@@ -64,7 +64,6 @@ function renderNav() {
 }
 
 function renderHeaderBrand() {
-  document.getElementById("brand-initials").textContent = CONTENT.brand.initials;
   document.getElementById("brand-name").textContent = CONTENT.brand.name;
   document.getElementById("brand-tagline").textContent = CONTENT.brand.tagline;
 }
@@ -99,7 +98,7 @@ function pageHome() {
           </div>
         </div>
         <div class="hero-info">
-          <div class="hero-stripes"><span></span><span></span><span></span><span></span></div>
+          <div class="hero-logo"><img src="images/ik-start-logo.png" alt="IK Start logo"></div>
           <div>
             <div class="hero-period-label">${esc(CONTENT.hero.periodLabel)}</div>
             <div class="hero-period">${esc(CONTENT.hero.period)}</div>
