@@ -197,6 +197,78 @@ function pageDiary() {
   `;
 }
 
+/* — bildegalleri med stor visning (lightbox) —
+   Brukes av statussidene. Tegnes bare hvis siden har en "gallery"-liste
+   i content.js, så sider uten bilder ser ut akkurat som før. */
+
+let lightboxIndex = -1;
+
+function galleryImages() {
+  const s = CONTENT[currentPage()];
+  return (s && s.gallery) || [];
+}
+
+function galleryMarkup(images) {
+  if (!images || !images.length) return "";
+
+  const thumbs = images.map((img, i) => `
+    <button type="button" class="gallery-thumb" data-gallery-index="${i}" aria-label="Vis større: ${esc(img.alt)}">
+      <img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy">
+    </button>
+  `).join("");
+
+  return `
+    <div class="gallery">${thumbs}</div>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bildevisning">
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Lukk">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M6 6 18 18M18 6 6 18"></path></svg>
+      </button>
+      <button type="button" class="lightbox-nav prev" data-lightbox-step="-1" aria-label="Forrige bilde">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="m15 18-6-6 6-6"></path></svg>
+      </button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="">
+      <button type="button" class="lightbox-nav next" data-lightbox-step="1" aria-label="Neste bilde">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>
+      <div class="lightbox-count" id="lightbox-count"></div>
+    </div>
+  `;
+}
+
+function drawLightbox() {
+  const box = document.getElementById("lightbox");
+  if (!box) return;
+  const images = galleryImages();
+  const isOpen = lightboxIndex >= 0 && lightboxIndex < images.length;
+
+  box.classList.toggle("open", isOpen);
+  document.body.classList.toggle("no-scroll", isOpen);
+  if (!isOpen) return;
+
+  const img = document.getElementById("lightbox-img");
+  img.src = images[lightboxIndex].src;
+  img.alt = images[lightboxIndex].alt;
+  document.getElementById("lightbox-count").textContent = `${lightboxIndex + 1} / ${images.length}`;
+}
+
+function openLightbox(i) {
+  lightboxIndex = i;
+  drawLightbox();
+}
+
+function closeLightbox() {
+  lightboxIndex = -1;
+  drawLightbox();
+}
+
+// Blar videre og starter på nytt når man kommer til enden, så pilene aldri stopper.
+function stepLightbox(delta) {
+  const n = galleryImages().length;
+  if (lightboxIndex < 0 || n === 0) return;
+  lightboxIndex = (lightboxIndex + delta + n) % n;
+  drawLightbox();
+}
+
 function pageStatus(key) {
   const s = CONTENT[key];
   const cards = s.items.map((item) => `
@@ -212,6 +284,7 @@ function pageStatus(key) {
       <h1>${esc(s.title)}</h1>
       <hr class="rule">
       <div class="grid-2">${cards}</div>
+      ${galleryMarkup(s.gallery)}
     </div>
   `;
 }
@@ -245,6 +318,8 @@ function pageReflection() {
 function renderMain(scrollTop) {
   const page = currentPage();
   const main = document.getElementById("app");
+  lightboxIndex = -1;
+  document.body.classList.remove("no-scroll");
   switch (page) {
     case "oppgave": main.innerHTML = pageTask(); break;
     case "omoss": main.innerHTML = pageTeam(); break;
@@ -267,6 +342,26 @@ function renderMain(scrollTop) {
     });
   });
 
+  main.querySelectorAll("[data-gallery-index]").forEach((btn) => {
+    btn.addEventListener("click", () => openLightbox(Number(btn.dataset.galleryIndex)));
+  });
+
+  main.querySelectorAll("[data-lightbox-step]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      stepLightbox(Number(btn.dataset.lightboxStep));
+    });
+  });
+
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    // Klikk på det mørke området rundt bildet lukker visningen.
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+  }
+
   renderNav();
   if (scrollTop) window.scrollTo(0, 0);
 }
@@ -278,6 +373,19 @@ function render() {
 document.addEventListener("click", (e) => {
   const dropdown = document.getElementById("status-dropdown");
   if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove("open");
+});
+
+document.addEventListener("keydown", (e) => {
+  if (lightboxIndex < 0) return;
+  if (e.key === "Escape") {
+    closeLightbox();
+  } else if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    stepLightbox(-1);
+  } else if (e.key === "ArrowRight") {
+    e.preventDefault();
+    stepLightbox(1);
+  }
 });
 
 window.addEventListener("hashchange", render);
