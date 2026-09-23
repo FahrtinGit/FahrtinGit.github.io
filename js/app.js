@@ -3,8 +3,7 @@
    tegnes opp på siden. De fleste trenger ikke røre denne filen.
    ============================================================ */
 
-const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1", "status2", "refleksjon"];
-const STATUS_PAGES = ["status1", "status2", "refleksjon"];
+const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1"];
 
 function esc(str) {
   const div = document.createElement("div");
@@ -29,38 +28,18 @@ function renderNav() {
     ["oppgave", "Oppgave"],
     ["omoss", "Om oss"],
     ["dagbok", "Prosjektdagbok"],
+    ["status1", "Statusrapport 1"],
   ];
-  const statusActive = STATUS_PAGES.includes(page);
 
   nav.innerHTML = `
     ${primary.map(([id, label]) => `
       <button type="button" class="nav-item ${page === id ? "active" : ""}" data-page="${id}">${esc(label)}</button>
     `).join("")}
-    <div class="nav-dropdown" id="status-dropdown">
-      <button type="button" class="nav-item ${statusActive ? "active" : ""}" id="status-toggle">
-        Statusrapport
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" style="vertical-align:-1px;margin-left:4px"><path d="m6 9 6 6 6-6"></path></svg>
-      </button>
-      <div class="nav-dropdown-menu">
-        <button type="button" data-page="status1" class="${page === "status1" ? "active" : ""}">Statusrapport 1</button>
-        <button type="button" data-page="status2" class="${page === "status2" ? "active" : ""}">Statusrapport 2</button>
-        <button type="button" data-page="refleksjon" class="${page === "refleksjon" ? "active" : ""}">Avsluttende refleksjon</button>
-      </div>
-    </div>
   `;
 
   nav.querySelectorAll("[data-page]").forEach((btn) => {
     btn.addEventListener("click", () => navigate(btn.dataset.page));
   });
-
-  const dropdown = document.getElementById("status-dropdown");
-  const toggle = document.getElementById("status-toggle");
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle("open");
-  });
-  dropdown.addEventListener("mouseenter", () => dropdown.classList.add("open"));
-  dropdown.addEventListener("mouseleave", () => dropdown.classList.remove("open"));
 }
 
 function renderHeaderBrand() {
@@ -75,33 +54,34 @@ function renderFooter() {
 }
 
 function pageHome() {
-  const d = CONTENT.deliverables.map((item) => `
-    <button type="button" class="deliverable-card" data-page="${item.page}">
+  const availablePages = new Set(["oppgave", "dagbok", "status1"]);
+  const d = CONTENT.deliverables.map((item) => {
+    const isAvailable = availablePages.has(item.page);
+    const tag = isAvailable ? "button" : "article";
+    const attributes = isAvailable ? ` type="button" data-page="${item.page}" aria-label="Åpne ${esc(item.title)}"` : "";
+    return `
+    <${tag}${attributes} class="deliverable-card ${isAvailable ? "" : "deliverable-card-static"}">
       <div class="deliverable-top">
         <span class="deliverable-num">${esc(item.num)}</span>
         <span class="pill">${esc(item.status)}</span>
       </div>
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.body)}</p>
-    </button>
-  `).join("");
+    </${tag}>
+  `;
+  }).join("");
 
   return `
     <section class="hero">
       <div class="wrap">
+        <div class="hero-logo"><img src="images/ik-start-logo.png" alt="IK Start logo"></div>
         <div class="hero-text">
           <div class="hero-byline">${esc(CONTENT.hero.byline)}</div>
           <h1>${esc(CONTENT.hero.titleLine1)}<br>${esc(CONTENT.hero.titleLine2)}</h1>
+          <p class="hero-period"><span>${esc(CONTENT.hero.periodLabel)}:</span> ${esc(CONTENT.hero.period)}</p>
           <div class="hero-actions">
-            <button type="button" class="btn btn-primary" data-page="dagbok">Prosjektdagbok</button>
-            <button type="button" class="btn btn-secondary" data-page="oppgave">Oppgavebeskrivelse</button>
-          </div>
-        </div>
-        <div class="hero-info">
-          <div class="hero-logo"><img src="images/ik-start-logo.png" alt="IK Start logo"></div>
-          <div>
-            <div class="hero-period-label">${esc(CONTENT.hero.periodLabel)}</div>
-            <div class="hero-period">${esc(CONTENT.hero.period)}</div>
+            <a class="btn btn-page" href="#dagbok">Prosjektdagbok <span aria-hidden="true">→</span></a>
+            <a class="btn btn-page" href="#oppgave">Oppgavebeskrivelse <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -147,9 +127,7 @@ function pageTeam() {
       </div>
       <div class="team-info">
         <h3>${esc(m.name)}</h3>
-        <div class="team-role">${esc(m.role)}</div>
-        <p>${esc(m.bio)}</p>
-        <a class="linkedin-btn" href="${esc(m.linkedin)}" target="_blank" rel="noopener">
+        <a class="linkedin-btn" href="${esc(m.linkedin)}" target="_blank" rel="noopener noreferrer" aria-label="Åpne LinkedIn-profilen til ${esc(m.name)}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.98 9.5h4v11.5h-4V9.5zM9.48 9.5h3.83v1.57h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75V21h-4v-5.35c0-1.28-.02-2.92-1.83-2.92-1.83 0-2.11 1.38-2.11 2.83V21h-4V9.5z"></path></svg>
           LinkedIn
         </a>
@@ -162,29 +140,22 @@ function pageTeam() {
       <h1>Om oss</h1>
       <hr class="rule">
       <div class="grid-3">${cards}</div>
-      <div class="team-note">${esc(CONTENT.teamNote)}</div>
     </div>
   `;
 }
 
-let openDiaryIndex = 0;
-
 function pageDiary() {
-  const rows = CONTENT.diary.map((entry, i) => `
-    <div class="diary-entry ${openDiaryIndex === i ? "open" : ""}">
-      <button type="button" class="diary-row" data-diary-index="${i}">
+  const rows = CONTENT.diary.map((entry) => `
+    <article class="diary-entry">
+      <div class="diary-row">
         <span class="diary-week">${esc(entry.week)}</span>
         <span class="diary-date">${esc(entry.date)}</span>
-        <span class="diary-state ${entry.updated ? "updated" : ""}">${entry.updated ? "Oppdatert" : "Ikke oppdatert"}</span>
-        <span class="diary-chevron">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="m6 9 6 6 6-6"></path></svg>
-        </span>
-      </button>
+      </div>
       <div class="diary-body">
         <p>${esc(entry.body)}</p>
         ${entry.choice ? `<div class="diary-choice"><strong>Vurdering:</strong> ${esc(entry.choice)}</div>` : ""}
       </div>
-    </div>
+    </article>
   `).join("");
 
   return `
@@ -192,7 +163,7 @@ function pageDiary() {
       <h1>Prosjektdagbok</h1>
       <p class="diary-intro">${esc(CONTENT.diaryIntro)}</p>
       <hr class="rule">
-      ${rows}
+      <div class="diary-list">${rows}</div>
     </div>
   `;
 }
@@ -289,32 +260,6 @@ function pageStatus(key) {
   `;
 }
 
-function pageReflection() {
-  const r = CONTENT.refleksjon;
-  const items = r.items.map((item) => `
-    <div class="refl-item">
-      <h3>${esc(item.title)}</h3>
-      <p>${esc(item.body)}</p>
-    </div>
-  `).join("");
-
-  return `
-    <section class="refl-hero">
-      <div class="wrap">
-        <div class="section-label">${esc(r.label)}</div>
-        <h1>${esc(r.title)}</h1>
-      </div>
-    </section>
-    <div class="wrap page refl-grid" style="display:grid;gap:40px">
-      <div>${items}</div>
-      <aside class="refl-quote">
-        <div class="refl-quote-label">${esc(r.quoteLabel)}</div>
-        <p>${esc(r.quote)}</p>
-      </aside>
-    </div>
-  `;
-}
-
 function renderMain(scrollTop) {
   const page = currentPage();
   const main = document.getElementById("app");
@@ -325,21 +270,11 @@ function renderMain(scrollTop) {
     case "omoss": main.innerHTML = pageTeam(); break;
     case "dagbok": main.innerHTML = pageDiary(); break;
     case "status1": main.innerHTML = pageStatus("status1"); break;
-    case "status2": main.innerHTML = pageStatus("status2"); break;
-    case "refleksjon": main.innerHTML = pageReflection(); break;
     default: main.innerHTML = pageHome();
   }
 
   main.querySelectorAll("[data-page]").forEach((btn) => {
     btn.addEventListener("click", () => navigate(btn.dataset.page));
-  });
-
-  main.querySelectorAll("[data-diary-index]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const i = Number(btn.dataset.diaryIndex);
-      openDiaryIndex = openDiaryIndex === i ? -1 : i;
-      renderMain(false);
-    });
   });
 
   main.querySelectorAll("[data-gallery-index]").forEach((btn) => {
@@ -370,11 +305,6 @@ function render() {
   renderMain(true);
 }
 
-document.addEventListener("click", (e) => {
-  const dropdown = document.getElementById("status-dropdown");
-  if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove("open");
-});
-
 document.addEventListener("keydown", (e) => {
   if (lightboxIndex < 0) return;
   if (e.key === "Escape") {
@@ -393,4 +323,14 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHeaderBrand();
   renderFooter();
   render();
+
+  // Tilpass forsiden også når menyen brytes over flere linjer.
+  const header = document.querySelector(".site-header");
+  const updateHeaderHeight = () => {
+    document.documentElement.style.setProperty(
+      "--site-header-height", `${header.getBoundingClientRect().height}px`
+    );
+  };
+  updateHeaderHeight();
+  new ResizeObserver(updateHeaderHeight).observe(header);
 });
