@@ -47,7 +47,7 @@ body {
 }
 .skip-link:focus { transform: translateY(0); }
 
-#app { flex: 1 0 auto; }
+#app { flex: 1 0 auto; display: flex; flex-direction: column; }
 .site-footer { flex: none; }
 
 h1, h2, h3, h4 {
@@ -61,10 +61,13 @@ a { color: inherit; }
 img { display: block; max-width: 100%; }
 button { font: inherit; }
 
+/* Innholdsbredden vokser med skjermen (opptil 1720 px), og sidemargen
+   er smal på mobil og romsligere på store skjermer. */
 .wrap {
-  max-width: 1180px;
+  width: 100%;
+  max-width: clamp(1180px, 88vw, 1720px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 clamp(16px, 4vw, 56px);
 }
 
 /* — header / nav — */
@@ -97,7 +100,7 @@ button { font: inherit; }
   flex: none;
 }
 .brand-mark-img {
-  height: 38px;
+  height: clamp(32px, 1.2vw + 20px, 48px);
   width: auto;
   display: block;
 }
@@ -109,7 +112,7 @@ button { font: inherit; }
 .brand-text strong {
   font-family: "Archivo", system-ui, sans-serif;
   font-weight: 900;
-  font-size: 16px;
+  font-size: clamp(15px, 0.35vw + 11px, 20px);
   letter-spacing: -0.01em;
 }
 .brand-text span {
@@ -134,9 +137,9 @@ nav.main-nav .nav-item {
   cursor: pointer;
   font-family: "Archivo", system-ui, sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: clamp(13px, 0.25vw + 10px, 16px);
   letter-spacing: 0.01em;
-  padding: 10px 12px;
+  padding: 10px clamp(10px, 0.6vw + 4px, 16px);
   text-align: left;
   transition: color 0.15s ease;
 }
@@ -203,99 +206,76 @@ nav.main-nav .nav-item.active {
 }
 .btn-page:hover { background: #f5f5f6; border-color: var(--color-ink); }
 .btn-page:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
-.btn-page span { font-size: 20px; line-height: 1; }
+.btn-page span { font-size: 1.4em; line-height: 1; }
 
-/* — hero — */
+/* — hero —
+   Forsiden skalerer med skjermen: tekst, logo og luft vokser med
+   bredden (vw), men holdes også igjen på lave skjermer (vh), slik at
+   leveransene under alltid er synlige uten mye tom plass. */
 .hero {
-  min-height: calc(100vh - var(--site-header-height, 73px));
-  min-height: calc(100svh - var(--site-header-height, 73px));
-  display: flex;
-  align-items: center;
-  padding: 32px 0;
+  --hero-small: clamp(14px, 0.45vw + 9px, 21px);
+  padding: clamp(32px, 7vh, 112px) 0 clamp(36px, 8vh, 128px);
 }
 .hero .wrap {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 20px;
   text-align: left;
 }
 .hero-text { width: 100%; }
 .hero-byline {
-  font-size: 14px;
+  font-size: var(--hero-small);
   font-weight: 600;
   color: var(--color-muted);
-  margin-bottom: 12px;
+  margin-bottom: 0.9em;
 }
 .hero-text h1 {
-  font-size: clamp(36px, 5vw, 56px);
-  line-height: 1.08;
-  margin: 0 0 12px;
+  font-size: clamp(40px, min(6vw, 11vh), 128px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.25em;
 }
+.hero-period {
+  font-size: var(--hero-small);
+  color: var(--color-muted);
+}
+.hero-period span { font-weight: 600; }
 .hero-actions {
   display: flex;
   justify-content: flex-start;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: clamp(20px, 3vh, 40px);
 }
-.hero-logo { width: 150px; align-self: center; }
+.hero-actions .btn {
+  font-size: var(--hero-small);
+  padding: 0.9em 1.6em;
+}
+.hero-logo { width: clamp(110px, 32vw, 160px); }
 .hero-logo img { width: 100%; height: auto; display: block; }
-.hero-period {
-  font-size: 14px;
-  color: var(--color-muted);
-}
-.hero-period span { font-weight: 600; }
 
+/* Mobil: knappene fyller hele bredden. */
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; align-items: stretch; gap: 8px; }
   .hero-actions .btn { width: 100%; justify-content: space-between; }
 }
 
+/* Nettbrett og større: tekst til venstre, logo til høyre. */
 @media (min-width: 700px) {
   .hero .wrap {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
     grid-template-areas: "text logo";
     align-items: center;
-    gap: clamp(24px, 4vw, 48px);
+    gap: clamp(24px, 4vw, 96px);
   }
   .hero-text { grid-area: text; }
   .hero-logo {
     grid-area: logo;
-    width: clamp(200px, 25vw, 320px);
-    max-width: 100%;
     justify-self: center;
+    width: clamp(200px, min(30vw, 52vh), 580px);
   }
-}
-
-/* Behold proporsjonene på store skjermer, med grenser for lesbarhet.
-   Ved 1440 px starter skaleringen på de opprinnelige størrelsene. */
-@media (min-width: 1440px) and (min-height: 700px) {
-  .hero .wrap,
-  .deliverables .wrap {
-    max-width: clamp(73.75rem, 81.944vw, 120rem);
-  }
-  .hero .wrap { gap: clamp(3rem, 3.333vw, 5rem); }
-  .hero-text h1 { font-size: clamp(3.5rem, 3.889vw, 6rem); }
-  .hero-logo { width: clamp(20rem, 22.222vw, 34rem); }
-  .hero-byline,
-  .hero-period,
-  .hero-actions .btn { font-size: clamp(0.875rem, 0.972vw, 1.25rem); }
-  .hero-byline,
-  .hero-text h1 { margin-bottom: clamp(0.75rem, 0.833vw, 1.25rem); }
-  .hero-actions {
-    margin-top: clamp(1.25rem, 1.389vw, 2rem);
-    gap: clamp(0.75rem, 0.833vw, 1.25rem);
-  }
-  .hero-actions .btn {
-    padding: clamp(0.875rem, 0.972vw, 1.25rem) clamp(1.5rem, 1.667vw, 2.5rem);
-  }
-  .deliverables .grid-3 { gap: clamp(1.25rem, 1.389vw, 2rem); }
-  .deliverables .deliverable-card { padding: clamp(1.5rem, 1.667vw, 2.25rem); }
-  .deliverables .deliverable-card h3 { font-size: clamp(1.3125rem, 1.458vw, 1.75rem); }
-  .deliverables .deliverable-card p { font-size: clamp(0.875rem, 0.972vw, 1.125rem); }
 }
 
 /* — section titles — */
@@ -309,11 +289,22 @@ nav.main-nav .nav-item.active {
 
 /* — deliverables — */
 .deliverables {
-  padding: 28px 0 40px;
+  flex: 1 0 auto;
+  padding: clamp(28px, 4vh, 56px) 0 clamp(40px, 6vh, 88px);
   background: #fafafa;
   border-top: 1px solid var(--color-divider);
 }
 .deliverables .section-label { margin-bottom: 18px; }
+
+/* Antall kolonner følger skjermbredden: 1 på mobil, 2 på nettbrett
+   og 3 på PC-skjerm. */
+.deliverable-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 24px);
+}
+@media (min-width: 600px)  { .deliverable-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .deliverable-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .grid-3, .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -326,11 +317,10 @@ nav.main-nav .nav-item.active {
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
   cursor: pointer;
-  padding: 24px;
+  padding: clamp(20px, 1.6vw, 32px);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 170px;
   color: inherit;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
@@ -354,11 +344,12 @@ nav.main-nav .nav-item.active {
   padding: 4px 10px;
   white-space: nowrap;
 }
-.deliverable-card h3 { font-size: 21px; }
-.deliverable-card p { font-size: 14px; margin: 0; color: var(--color-muted); }
+.deliverable-card h3 { font-size: clamp(19px, 0.6vw + 12px, 26px); }
+.deliverable-card p { font-size: clamp(14px, 0.3vw + 10px, 17px); margin: 0; color: var(--color-muted); }
+@media (min-width: 600px) { .deliverable-card { min-height: 170px; } }
 
 /* — page shell — */
-.page { padding: 48px 0 64px; }
+.page { padding-top: clamp(32px, 5vh, 64px); padding-bottom: clamp(48px, 7vh, 96px); }
 .page h1 { font-size: clamp(30px, 7vw, 52px); margin: 0 0 16px; }
 .rule { height: 1px; background: var(--color-divider); margin: 20px 0 36px; border: 0; }
 
@@ -395,8 +386,8 @@ nav.main-nav .nav-item.active {
 .fact-row span:last-child { font-weight: 600; text-align: right; }
 
 .task-body h3 { font-size: 19px; margin: 28px 0 10px; }
-.task-body ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7; }
-.task-body p { font-size: 16px; line-height: 1.65; color: var(--color-muted); }
+.task-body ul { margin: 0; padding-left: 20px; font-size: clamp(15px, 0.3vw + 11px, 18px); line-height: 1.7; }
+.task-body p { font-size: clamp(16px, 0.3vw + 12px, 19px); line-height: 1.65; color: var(--color-muted); }
 
 /* — team / om oss — */
 .team-card {
@@ -420,6 +411,8 @@ nav.main-nav .nav-item.active {
   position: relative;
   overflow: hidden;
 }
+/* Brede skjermer: kvadratiske bilder, så kortene ikke blir for høye. */
+@media (min-width: 1400px) { .team-photo { aspect-ratio: 1 / 1; } }
 .team-photo img {
   position: absolute;
   inset: 0;
@@ -640,7 +633,8 @@ body.no-scroll { overflow: hidden; }
   border-top: 3px solid var(--color-accent);
 }
 .site-footer .wrap {
-  padding: 36px 24px;
+  padding-top: 36px;
+  padding-bottom: 36px;
   display: flex;
   justify-content: space-between;
   gap: 24px;
@@ -660,7 +654,7 @@ body.no-scroll { overflow: hidden; }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .gallery { grid-template-columns: repeat(3, 1fr); }
 
-  .with-aside { grid-template-columns: 1.4fr 1fr; gap: 56px; }
+  .with-aside { grid-template-columns: minmax(0, 1fr) minmax(300px, 440px); gap: clamp(40px, 4vw, 80px); }
 
   .refl-grid { grid-template-columns: 1fr 1fr; }
 }

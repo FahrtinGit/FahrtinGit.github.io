@@ -89,7 +89,7 @@ function pageHome() {
     <section class="deliverables">
       <div class="wrap">
         <h2 class="section-label">Leveranser</h2>
-        <div class="grid-3">${d}</div>
+        <div class="deliverable-grid">${d}</div>
       </div>
     </section>
   `;
@@ -323,14 +323,4 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHeaderBrand();
   renderFooter();
   render();
-
-  // Tilpass forsiden også når menyen brytes over flere linjer.
-  const header = document.querySelector(".site-header");
-  const updateHeaderHeight = () => {
-    document.documentElement.style.setProperty(
-      "--site-header-height", `${header.getBoundingClientRect().height}px`
-    );
-  };
-  updateHeaderHeight();
-  new ResizeObserver(updateHeaderHeight).observe(header);
 });
