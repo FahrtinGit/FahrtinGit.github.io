@@ -270,6 +270,34 @@ nav.main-nav .nav-item.active {
   }
 }
 
+/* Behold proporsjonene på store skjermer, med grenser for lesbarhet.
+   Ved 1440 px starter skaleringen på de opprinnelige størrelsene. */
+@media (min-width: 1440px) and (min-height: 700px) {
+  .hero .wrap,
+  .deliverables .wrap {
+    max-width: clamp(73.75rem, 81.944vw, 120rem);
+  }
+  .hero .wrap { gap: clamp(3rem, 3.333vw, 5rem); }
+  .hero-text h1 { font-size: clamp(3.5rem, 3.889vw, 6rem); }
+  .hero-logo { width: clamp(20rem, 22.222vw, 34rem); }
+  .hero-byline,
+  .hero-period,
+  .hero-actions .btn { font-size: clamp(0.875rem, 0.972vw, 1.25rem); }
+  .hero-byline,
+  .hero-text h1 { margin-bottom: clamp(0.75rem, 0.833vw, 1.25rem); }
+  .hero-actions {
+    margin-top: clamp(1.25rem, 1.389vw, 2rem);
+    gap: clamp(0.75rem, 0.833vw, 1.25rem);
+  }
+  .hero-actions .btn {
+    padding: clamp(0.875rem, 0.972vw, 1.25rem) clamp(1.5rem, 1.667vw, 2.5rem);
+  }
+  .deliverables .grid-3 { gap: clamp(1.25rem, 1.389vw, 2rem); }
+  .deliverables .deliverable-card { padding: clamp(1.5rem, 1.667vw, 2.25rem); }
+  .deliverables .deliverable-card h3 { font-size: clamp(1.3125rem, 1.458vw, 1.75rem); }
+  .deliverables .deliverable-card p { font-size: clamp(0.875rem, 0.972vw, 1.125rem); }
+}
+
 /* — section titles — */
 .section-label {
   font-size: 13px;
