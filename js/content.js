@@ -61,35 +61,23 @@ const CONTENT = {
   // de gule initialene automatisk i stedet — du trenger ikke fjerne
   // "img"-linjen selv om bildet ikke er lastet opp ennå.
   team: [
-    { initials: "FA", name: "Fahrtin Assenov", role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/fahrtin/", img: "images/om-oss/Fahrtin.jpg" },
-    { initials: "DA", name: "Dawit Andom",     role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/dawit-andom-787199243", img: "images/om-oss/Dawit.jpg" },
-    { initials: "EN", name: "Elias Nahiry",    role: "Fyll inn", bio: "Fyll inn", linkedin: "https://www.linkedin.com/in/elias-nahiry-025734388/", img: "images/om-oss/Elias.jpg" },
+    { initials: "FA", name: "Fahrtin Assenov", linkedin: "https://www.linkedin.com/in/fahrtin/", img: "images/om-oss/Fahrtin.jpg" },
+    { initials: "DA", name: "Dawit Andom",     linkedin: "https://www.linkedin.com/in/dawit-andom-787199243", img: "images/om-oss/Dawit.jpg" },
+    { initials: "EN", name: "Elias Nahiry",    linkedin: "https://www.linkedin.com/in/elias-nahiry-025734388/", img: "images/om-oss/Elias.jpg" },
   ],
   // "Bilder hentes fra mappen images/om-oss/ — legg til Fahrtin.jpg, Dawit.jpg og Elias.jpg der, så vises de automatisk i stedet for bokstavene.",
 
   diaryIntro: "En løpende logg som skrives mens arbeidet gjøres — hva vi gjorde, hvilke alternativer vi vurderte, og hva vi valgte.",
 
-  // Ett innslag per uke. Sett "updated" til true når uka er skrevet inn,
-  // så bytter merket fra "Ikke oppdatert" til "Oppdatert".
+  // Ett innslag per ferdigskrevet uke.
   // "choice" er valgfri — la den stå tom ("") hvis det ikke er noen
   // konkret vurdering å trekke fram den uka.
   diary: [
-    { week: "Uke 34", date: "19.08.2026", updated: true, body: "Første dag i praksis. Vi ble kjent med lokalet og ble bedre kjent med de ansatte og arbeidsplassen. Snakket om oppgaven og begynte planleggingen av semesteret — hva vi skal jobbe med utover høsten.", choice: "" },
-    { week: "Uke 35", date: "26.08.2026", updated: true, body: "Satt opp oppgaver i Trello som vi kan jobbe med videre, gjort mer research for toolkits vi kan bruke for video- og lydsync. Snakket om hva vi tenker før vi møtes neste gang.", choice: "" },
-    { week: "Uke 36", date: "02.09.2026", updated: true, body: "Vi møtte kodeteamet hos IK Start, som i dag sitter og koder flere av oppgavene manuelt — de samme oppgavene vi skal automatisere deler av. Vi satte oss ned, snakket og drøftet litt sammen. Det ga oss et bedre innblikk i hvordan de tunge prosessene kan endres.", choice: "" },
-    { week: "Uke 37", date: "09.09.2026", updated: true, body: "Vi fikk tilgang på separate videofiler og lydfiler som IK Start bruker på treningene, slik at vi kan begynne å teste et script der de automatisk blir synkronisert når filene lastes opp i dashboardet. Da slipper trenerpersonellet å gjøre det manuelt.", choice: "" },
-    { week: "Uke 38", date: "16.09.2026", updated: true, body: "Vi var på TechPoint og fikk se nye muligheter, men også mye mer informasjon om markedet der ute i arbeidslivet. Dagen etter TechPoint ble det hjemmekontor, siden vi ikke hadde kontor hos IK Start. Vi jobber videre med implementering og testing av synkroniseringsdelen, samtidig som vi har startet på en ny del — sporing av ballen i fotball, der vi skal telle tid på når den er i spill og ute av spill.", choice: "" },
-    { week: "Uke 39", date: "23.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 40", date: "30.09.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 41", date: "07.10.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 42", date: "14.10.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 43", date: "21.10.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 44", date: "28.10.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 45", date: "04.11.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 46", date: "11.11.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 47", date: "18.11.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 48", date: "25.11.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
-    { week: "Uke 49", date: "02.12.2026", updated: false, body: "Ikke oppdatert — oppdatering kommer", choice: "" },
+    { week: "Uke 34", date: "19.08.2026", body: "Første dag i praksis. Vi ble kjent med lokalet og ble bedre kjent med de ansatte og arbeidsplassen. Snakket om oppgaven og begynte planleggingen av semesteret — hva vi skal jobbe med utover høsten.", choice: "" },
+    { week: "Uke 35", date: "26.08.2026", body: "Satt opp oppgaver i Trello som vi kan jobbe med videre, gjort mer research for toolkits vi kan bruke for video- og lydsync. Snakket om hva vi tenker før vi møtes neste gang.", choice: "" },
+    { week: "Uke 36", date: "02.09.2026", body: "Vi møtte kodeteamet hos IK Start, som i dag sitter og koder flere av oppgavene manuelt — de samme oppgavene vi skal automatisere deler av. Vi satte oss ned, snakket og drøftet litt sammen. Det ga oss et bedre innblikk i hvordan de tunge prosessene kan endres.", choice: "" },
+    { week: "Uke 37", date: "09.09.2026", body: "Vi fikk tilgang på separate videofiler og lydfiler som IK Start bruker på treningene, slik at vi kan begynne å teste et script der de automatisk blir synkronisert når filene lastes opp i dashboardet. Da slipper trenerpersonellet å gjøre det manuelt.", choice: "" },
+    { week: "Uke 38", date: "16.09.2026", body: "Vi var på TechPoint og fikk se nye muligheter, men også mye mer informasjon om markedet der ute i arbeidslivet. Dagen etter TechPoint ble det hjemmekontor, siden vi ikke hadde kontor hos IK Start. Vi jobber videre med implementering og testing av synkroniseringsdelen, samtidig som vi har startet på en ny del — sporing av ballen i fotball, der vi skal telle tid på når den er i spill og ute av spill.", choice: "" },
   ],
 
   status1: {
@@ -110,29 +98,6 @@ const CONTENT = {
       { src: "images/status1/gruppa-tribunen.jpg", alt: "Gruppa på tribunen" },
       { src: "images/status1/gruppa-arena.jpg",    alt: "Gruppa på Sparebanken Norge Arena" },
     ],
-  },
-
-  status2: {
-    label: "Statusrapport 2",
-    title: "Fra plan til løsning",
-    items: [
-      { title: "Framdrift", body: "Fyll inn: hva er ferdig siden forrige rapport?" },
-      { title: "Endringer i planen", body: "Fyll inn: hva har vi endret, og hvorfor?" },
-      { title: "Testing og tilbakemelding", body: "Fyll inn: hva sa klubben da de så løsningen?" },
-      { title: "Gjenstående arbeid", body: "Fyll inn: hva må gjøres før innlevering?" },
-    ],
-  },
-
-  refleksjon: {
-    label: "Avsluttende refleksjon",
-    title: "Hva vi tar med oss videre",
-    items: [
-      { title: "Læring", body: "Fyll inn: hva kan vi nå som vi ikke kunne i august?" },
-      { title: "Samarbeid", body: "Fyll inn: hvordan fungerte arbeidsfordelingen mellom oss tre?" },
-      { title: "Hva vi ville gjort annerledes", body: "Fyll inn: ett konkret valg vi ville tatt på nytt." },
-    ],
-    quoteLabel: "Å skrive er å tenke",
-    quote: "Legg in skrift her",
   },
 
   footer: {

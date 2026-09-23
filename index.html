@@ -11,9 +11,11 @@
 </head>
 <body>
 
+<a class="skip-link" href="#app">Hopp til innholdet</a>
+
 <header class="site-header">
   <div class="wrap">
-    <div class="brand">
+    <a class="brand" href="#hjem" aria-label="Gå til forsiden">
       <div class="brand-mark">
         <img src="images/ik-start-logo.png" alt="IK Start logo" class="brand-mark-img">
       </div>
@@ -21,12 +23,12 @@
         <strong id="brand-name"></strong>
         <span id="brand-tagline"></span>
       </div>
-    </div>
-    <nav class="main-nav" id="main-nav"></nav>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Hovedmeny"></nav>
   </div>
 </header>
 
-<main id="app"></main>
+<main id="app" tabindex="-1"></main>
 
 <footer class="site-footer">
   <div class="wrap">
