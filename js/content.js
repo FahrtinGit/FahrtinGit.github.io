@@ -33,7 +33,7 @@ const CONTENT = {
     { num: "02", status: "Utkast", title: "Oppgavebeskrivelse",    body: "Mål, rammer og avgrensning for praksisprosjektet.", page: "oppgave" },
     { num: "03", status: "Pågår",  title: "Prosjektdagbok",        body: "Logg som skrives underveis, med vurderinger bak hvert valg.", page: "dagbok" },
     { num: "04", status: "Ferdig", title: "Statusrapport 1",       body: "Situasjonen etter oppstart: forståelse av oppgaven og plan.", page: "status1" },
-    { num: "05", status: "Kommer", title: "Statusrapport 2",       body: "Framdrift, endringer i planen og hva som står igjen.", page: "status2" },
+    { num: "05", status: "Ferdig", title: "Statusrapport 2",       body: "Framdrift, endringer i planen og hva som står igjen.", page: "status2" },
     { num: "06", status: "Kommer", title: "Avsluttende refleksjon", body: "Hva vi lærte, hva vi ville gjort annerledes.", page: "refleksjon" },
   ],
 
@@ -97,6 +97,26 @@ const CONTENT = {
       { src: "images/status1/oppstartsmote.jpg",   alt: "Oppstartsmøte med IK Start" },
       { src: "images/status1/gruppa-tribunen.jpg", alt: "Gruppa på tribunen" },
       { src: "images/status1/gruppa-arena.jpg",    alt: "Gruppa på Sparebanken Norge Arena" },
+    ],
+  },
+
+  status2: {
+    label: "Statusrapport 2",
+    title: "Framdrift og veien videre",
+    // Vil du ha flere avsnitt i ett kort: skriv \n\n der det nye avsnittet skal starte.
+    items: [
+      { title: "Hva vi har gjort", body: "Siden forrige rapport har vi jobbet med fire deler av løsningen. Dashboardet har fått et nytt og mer oversiktlig design, og CSV-importen fra PlayerMaker er tilpasset det nye eksportformatet. Vi har laget et verktøy som automatisk synkroniserer video med lydopptakene fra trenerne. For transkripsjon bruker vi WhisperX til å lage tekst med tidsstempler og skille mellom hvem som snakker. En språkmodell klassifiserer deretter spørsmålene som åpne eller lukkede. For videoanalyse har vi en prototype bygget med FastAPI, YOLO og ByteTrack, som lager en tidslinje over aktivitet og pauser på banen. I tillegg har vi merket egne treningsbilder i CVAT og trent en første YOLO-modell fra Ultralytics på dem." },
+      { title: "Hvor vi står nå", body: "Dashboardet og synkroniseringen er ferdige og slått sammen i hovedkoden. Prototypen for aktivitet og pauser fungerer og har 12 automatiserte tester som består, men må testes på flere videoer før den kan tas i bruk. Transkripsjonen var en periode satt på vent på grunn av varierende lydkvalitet, men er nå i gang igjen. Vår egentrente modell finner spillere og trenere godt, men ikke ballen ennå. Vi ser nå tydeligere hvordan delene henger sammen. Bildene vi merker i CVAT kan for eksempel også brukes til å forbedre ballregistreringen i prototypen." },
+      { title: "Arbeidsmetoder", body: "Vi jobber i egne branches i Git og slår dem sammen via pull requests, slik at resten av gruppa ser over endringene. Før vi bygger noe inn i dashboardet, lager vi en liten pilot for å se om ideen fungerer. Vi tester på hele treningsøkter og sammenligner med manuelle registreringer, siden korte klipp kan gi et misvisende bilde. Opptakene viser mindreårige spillere, så videoene holdes utenfor Git og behandles lokalt. Vi bruker også AI-verktøy som Claude Code og Codex til koding og feilsøking." },
+      { title: "Utfordringer og interessante ting", body: "Utfordringene har vært forskjellige for de ulike delene. På lyd gir vind og bevegelse mye støy på trenermikrofonene, og Whisper tolket norsk som svensk når vi ikke satte språket selv. I ballregistreringen er ballen ofte liten, rask eller skjult bak spillere, og den kan være synlig selv om spillet står stille. I sporingen av spillere panorerer og zoomer kameraet med spillet, så modellen mister oversikten over hvem som er hvem. Felles for alle er at videofilene er store, og overføring og prosessering tar mye tid.\n\nDet vi har lært er at kvaliteten på opptakene betyr mer enn verktøyene. Vindhetter på mikrofonene ville trolig hjulpet mer enn noen programvare. Samtidig så vi at en modell trent på egne bilder ble tydelig bedre etter bare en liten mengde merkede bilder." },
+      { title: "Neste steg", body: "Vi skal teste prototypen for aktivitet og pauser på flere videoer og sammenligne med manuelle registreringer. Vi gjør ferdig merkingen i CVAT og trener modellen på hele settet. Hvis den ferdigtrente modellen ikke finner ballen godt nok, finjusterer vi vår egen. For transkripsjonen skal klassifiseringen av spørsmål valideres mot kriteriene til gruppen som i dag analyserer samtalene manuelt. Vi skal også spørre IK Start om det er mulig å få et fast panoramabilde av banen. På sikt er målet at alle analysene kobles sammen med tidsstempler i et felles dashboard." },
+    ],
+    // Bildene under statusrapporten. Ligger i mappen images/status2/.
+    gallery: [
+      { src: "images/status2/cvat-merking.jpg",   alt: "Merking av spillere og trenere i CVAT" },
+      { src: "images/status2/yolo-deteksjon.jpg", alt: "YOLO-modellen finner spillere på banen" },
+      { src: "images/status2/ball-tracking-video.jpg",    alt: "Prototypen for ball i spill / ikke i spill viser aktiv trening på videoen" },
+      { src: "images/status2/ball-tracking-resultat.jpg", alt: "Tidslinje over aktiv trening og pauser, med mulighet for å korrigere kampstopp" },
     ],
   },
 

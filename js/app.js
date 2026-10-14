@@ -3,7 +3,7 @@
    tegnes opp på siden. De fleste trenger ikke røre denne filen.
    ============================================================ */
 
-const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1"];
+const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1", "status2"];
 
 function esc(str) {
   const div = document.createElement("div");
@@ -29,6 +29,7 @@ function renderNav() {
     ["omoss", "Om oss"],
     ["dagbok", "Prosjektdagbok"],
     ["status1", "Statusrapport 1"],
+    ["status2", "Statusrapport 2"],
   ];
 
   nav.innerHTML = `
@@ -54,7 +55,7 @@ function renderFooter() {
 }
 
 function pageHome() {
-  const availablePages = new Set(["oppgave", "dagbok", "status1"]);
+  const availablePages = new Set(["oppgave", "dagbok", "status1", "status2"]);
   const d = CONTENT.deliverables.map((item) => {
     const isAvailable = availablePages.has(item.page);
     const tag = isAvailable ? "button" : "article";
@@ -189,7 +190,7 @@ function galleryMarkup(images) {
   `).join("");
 
   return `
-    <div class="gallery">${thumbs}</div>
+    <div class="gallery ${images.length % 2 === 0 ? "gallery-2" : ""}">${thumbs}</div>
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bildevisning">
       <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Lukk">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M6 6 18 18M18 6 6 18"></path></svg>
@@ -245,7 +246,7 @@ function pageStatus(key) {
   const cards = s.items.map((item) => `
     <section class="status-card">
       <h3>${esc(item.title)}</h3>
-      <p>${esc(item.body)}</p>
+      ${String(item.body).split("\n\n").map((para) => `<p>${esc(para)}</p>`).join("")}
     </section>
   `).join("");
 
@@ -270,6 +271,7 @@ function renderMain(scrollTop) {
     case "omoss": main.innerHTML = pageTeam(); break;
     case "dagbok": main.innerHTML = pageDiary(); break;
     case "status1": main.innerHTML = pageStatus("status1"); break;
+    case "status2": main.innerHTML = pageStatus("status2"); break;
     default: main.innerHTML = pageHome();
   }
 

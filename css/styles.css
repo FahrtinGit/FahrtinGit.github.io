@@ -496,6 +496,7 @@ nav.main-nav .nav-item.active {
 }
 .status-card h3 { font-size: 19px; margin: 0 0 10px; }
 .status-card p { font-size: 15px; line-height: 1.65; margin: 0; color: var(--color-muted); }
+.status-card p + p { margin-top: 12px; }
 
 /* — bildegalleri på statussidene — */
 .gallery {
@@ -521,6 +522,8 @@ nav.main-nav .nav-item.active {
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+/* Skjermbilder er brede, så de beskjæres mindre enn bildene i 4:3. */
+.gallery-2 .gallery-thumb img { aspect-ratio: 16 / 9; }
 .gallery-thumb:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 4px rgba(14,14,14,0.06), 0 14px 32px rgba(14,14,14,0.12);
@@ -652,7 +655,11 @@ body.no-scroll { overflow: hidden; }
 @media (min-width: 860px) {
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  /* Et odde siste kort fyller hele bredden i stedet for å stå alene i venstre kolonne. */
+  .grid-2 > .status-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .gallery { grid-template-columns: repeat(3, 1fr); }
+  /* Et partall bilder vises i to kolonner, så ingen rad får en tom plass. */
+  .gallery.gallery-2 { grid-template-columns: repeat(2, 1fr); }
 
   .with-aside { grid-template-columns: minmax(0, 1fr) minmax(300px, 440px); gap: clamp(40px, 4vw, 80px); }
 
