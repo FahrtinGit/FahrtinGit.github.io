@@ -24,6 +24,9 @@ const CONTENT = {
     titleLine2: "IK START",
     periodLabel: "Periode",
     period: "August — desember 2026",
+    // Videoen på forsiden. "youtubeId" er koden etter "embed/" i YouTube-lenken.
+    // La den stå tom ("") for å vise bare logoen.
+    video: { youtubeId: "ckPFoskxxp8", title: "Praksis hos IK Start" },
   },
 
   // Kortene på forsiden under "Leveranser".

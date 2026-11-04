@@ -214,7 +214,9 @@ nav.main-nav .nav-item.active {
    leveransene under alltid er synlige uten mye tom plass. */
 .hero {
   --hero-small: clamp(14px, 0.45vw + 9px, 21px);
-  padding: clamp(32px, 7vh, 112px) 0 clamp(36px, 8vh, 128px);
+  --hero-title: clamp(40px, min(6vw, 11vh), 128px);
+  --hero-pad: clamp(32px, 7vh, 112px);
+  padding: var(--hero-pad) 0 clamp(36px, 8vh, 128px);
 }
 .hero .wrap {
   display: flex;
@@ -231,7 +233,7 @@ nav.main-nav .nav-item.active {
   margin-bottom: 0.9em;
 }
 .hero-text h1 {
-  font-size: clamp(40px, min(6vw, 11vh), 128px);
+  font-size: var(--hero-title);
   line-height: 1.02;
   letter-spacing: -0.03em;
   margin: 0 0 0.25em;
@@ -255,6 +257,27 @@ nav.main-nav .nav-item.active {
 .hero-logo { width: clamp(110px, 32vw, 160px); }
 .hero-logo img { width: 100%; height: auto; display: block; }
 
+/* Videoen på forsiden. På mobil ligger den under teksten. */
+.hero-media {
+  width: 100%;
+  order: 2;
+}
+.hero-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0e0e0e;
+  border: 3px solid var(--color-divider);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(14,14,14,0.10), 0 24px 56px rgba(14,14,14,0.22);
+}
+.hero-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* Mobil: knappene fyller hele bredden. */
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; align-items: stretch; gap: 8px; }
@@ -271,6 +294,18 @@ nav.main-nav .nav-item.active {
     gap: clamp(24px, 4vw, 96px);
   }
   .hero-text { grid-area: text; }
+  .hero .wrap:has(.hero-media) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  /* Midten av videoen legges på høyde med midten av overskriften:
+     linjen med navn + halve overskriften, minus halve videohøyden (9/16 ÷ 2).
+     max() hindrer at videoen stikker opp i menyen på lave skjermer. */
+  .hero-media {
+    grid-area: logo;
+    align-self: start;
+    margin-top: max(
+      calc(8px - var(--hero-pad)),
+      calc(var(--hero-small) * 2.5 + var(--hero-title) * 1.02 - 28.125%)
+    );
+  }
   .hero-logo {
     grid-area: logo;
     justify-self: center;

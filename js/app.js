@@ -54,6 +54,18 @@ function renderFooter() {
   document.getElementById("footer-note").textContent = CONTENT.footer.note;
 }
 
+// Uten video vises logoen, slik som før.
+function heroMedia(video) {
+  if (!video || !video.youtubeId) return `<div class="hero-logo"><img src="images/ik-start-logo.png" alt="IK Start logo"></div>`;
+  return `
+    <div class="hero-media">
+      <div class="hero-video">
+        <iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.youtubeId)}" title="${esc(video.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  `;
+}
+
 function pageHome() {
   const availablePages = new Set(["oppgave", "dagbok", "status1", "status2"]);
   const d = CONTENT.deliverables.map((item) => {
@@ -75,7 +87,7 @@ function pageHome() {
   return `
     <section class="hero">
       <div class="wrap">
-        <div class="hero-logo"><img src="images/ik-start-logo.png" alt="IK Start logo"></div>
+        ${heroMedia(CONTENT.hero.video)}
         <div class="hero-text">
           <div class="hero-byline">${esc(CONTENT.hero.byline)}</div>
           <h1>${esc(CONTENT.hero.titleLine1)}<br>${esc(CONTENT.hero.titleLine2)}</h1>
