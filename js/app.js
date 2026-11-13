@@ -277,11 +277,20 @@ function pageStatus(key) {
 // Én personlig refleksjon per person, med navn og ansvarsområde øverst.
 function pageReflection() {
   const r = CONTENT.refleksjon;
-  const cards = r.personal.map((p) => `
+  const cards = r.personal.map((p) => {
+    // Bildet hentes fra Om oss-siden, så det bare ligger ett sted.
+    const member = CONTENT.team.find((m) => m.name === p.name) || {};
+    return `
     <article class="refl-person">
       <header class="refl-person-head">
-        <h2>${esc(p.name)}</h2>
-        <span class="refl-role">${esc(p.role)}</span>
+        <div class="refl-avatar">
+          <span>${esc(member.initials)}</span>
+          ${member.img ? `<img src="${esc(member.img)}" alt="" onerror="this.remove()">` : ""}
+        </div>
+        <div class="refl-person-name">
+          <h2>${esc(p.name)}</h2>
+          <span class="refl-role">${esc(p.role)}</span>
+        </div>
       </header>
       <div class="refl-person-body">
         ${p.body
@@ -289,7 +298,8 @@ function pageReflection() {
           : `<p class="refl-empty">Teksten kommer.</p>`}
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 
   return `
     <div class="wrap page">
