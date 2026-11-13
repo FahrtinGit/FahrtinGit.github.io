@@ -3,7 +3,7 @@
    tegnes opp på siden. De fleste trenger ikke røre denne filen.
    ============================================================ */
 
-const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1", "status2"];
+const PAGES = ["hjem", "oppgave", "omoss", "dagbok", "status1", "status2", "refleksjon"];
 
 function esc(str) {
   const div = document.createElement("div");
@@ -30,6 +30,7 @@ function renderNav() {
     ["dagbok", "Prosjektdagbok"],
     ["status1", "Statusrapport 1"],
     ["status2", "Statusrapport 2"],
+    ["refleksjon", "Avsluttende refleksjon"],
   ];
 
   nav.innerHTML = `
@@ -67,7 +68,7 @@ function heroMedia(video) {
 }
 
 function pageHome() {
-  const availablePages = new Set(["oppgave", "dagbok", "status1", "status2"]);
+  const availablePages = new Set(["oppgave", "dagbok", "status1", "status2", "refleksjon"]);
   const d = CONTENT.deliverables.map((item) => {
     const isAvailable = availablePages.has(item.page);
     const tag = isAvailable ? "button" : "article";
@@ -273,6 +274,33 @@ function pageStatus(key) {
   `;
 }
 
+// Én personlig refleksjon per person, med navn og ansvarsområde øverst.
+function pageReflection() {
+  const r = CONTENT.refleksjon;
+  const cards = r.personal.map((p) => `
+    <article class="refl-person">
+      <header class="refl-person-head">
+        <h2>${esc(p.name)}</h2>
+        <span class="refl-role">${esc(p.role)}</span>
+      </header>
+      <div class="refl-person-body">
+        ${p.body
+          ? String(p.body).split("\n\n").map((para) => `<p>${esc(para)}</p>`).join("")
+          : `<p class="refl-empty">Teksten kommer.</p>`}
+      </div>
+    </article>
+  `).join("");
+
+  return `
+    <div class="wrap page">
+      <div class="status-label">${esc(r.label)}</div>
+      <h1>${esc(r.title)}</h1>
+      <hr class="rule">
+      <div class="refl-list">${cards}</div>
+    </div>
+  `;
+}
+
 function renderMain(scrollTop) {
   const page = currentPage();
   const main = document.getElementById("app");
@@ -284,6 +312,7 @@ function renderMain(scrollTop) {
     case "dagbok": main.innerHTML = pageDiary(); break;
     case "status1": main.innerHTML = pageStatus("status1"); break;
     case "status2": main.innerHTML = pageStatus("status2"); break;
+    case "refleksjon": main.innerHTML = pageReflection(); break;
     default: main.innerHTML = pageHome();
   }
 

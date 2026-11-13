@@ -37,7 +37,7 @@ const CONTENT = {
     { num: "03", status: "Pågår",  title: "Prosjektdagbok",        body: "Logg som skrives underveis, med vurderinger bak hvert valg.", page: "dagbok" },
     { num: "04", status: "Ferdig", title: "Statusrapport 1",       body: "Situasjonen etter oppstart: forståelse av oppgaven og plan.", page: "status1" },
     { num: "05", status: "Ferdig", title: "Statusrapport 2",       body: "Framdrift, endringer i planen og hva som står igjen.", page: "status2" },
-    { num: "06", status: "Kommer", title: "Avsluttende refleksjon", body: "Hva vi lærte, hva vi ville gjort annerledes.", page: "refleksjon" },
+    { num: "06", status: "Utkast", title: "Avsluttende refleksjon", body: "Hva vi lærte, hva vi ville gjort annerledes.", page: "refleksjon" },
   ],
 
   task: {
@@ -127,6 +127,20 @@ const CONTENT = {
       { src: "images/status2/yolo-deteksjon.jpg", alt: "YOLO-modellen finner spillere på banen" },
       { src: "images/status2/ball-tracking-video.jpg",    alt: "Prototypen for ball i spill / ikke i spill viser aktiv trening på videoen" },
       { src: "images/status2/ball-tracking-resultat.jpg", alt: "Tidslinje over aktiv trening og pauser, med mulighet for å korrigere kampstopp" },
+    ],
+  },
+
+  // Avsluttende refleksjon. Én personlig tekst per person.
+  // Skriv teksten din mellom anførselstegnene etter body:.
+  // Tom linje i teksten (\n\n) gir nytt avsnitt. Står body tom (""),
+  // vises «Teksten kommer.» på siden.
+  refleksjon: {
+    label: "Avsluttende refleksjon",
+    title: "Det vi tar med oss fra IK Start",
+    personal: [
+      { name: "Fahrtin Assenov", role: "Video/lyd-synk, YOLO-modell og research", body: "Jeg hadde ansvaret for å synkronisere video og lyd fra trenermikrofonene, og senere for YOLO-modellen. Modellen skal finne spillere, trenere og ballen i videoene fra treningene, slik at man kan følge hva som skjer på banen. Vi trente den på bilder vi merket selv, og nå finner den spillere og trenere godt, men ikke ballen ennå. Underveis brukte jeg også mye tid på research av verktøy for de ulike delene av prosjektet.\n\nDet jeg lærte mest av, var å teste tidlig på de ekte opptakene. Støy på lyden og et kamera som panorerer og zoomer gjorde arbeidet vanskeligere enn vi trodde, og et bedre verktøy hjelper lite når opptaket er dårlig. Samtidig så jeg hvor mye egne data betyr. Etter bare 50 merkede bilder trengte vår egen modell 35 % færre rettinger enn en ferdigtrent YOLO-modell.\n\nResearch, testing og prøving har vært den morsomste delen av prosjektet. Det har vært gøy å finne et verktøy, prøve det på våre egne opptak og se hva som faktisk fungerer.\n\nArbeidsplassen hos IK Start har vært åpen og fin. Samtalene var kanskje ikke så teknisk dype, men vi hadde mange gode idésamtaler, og trivselen har vært god." },
+      { name: "Dawit Andom", role: "Ballregistrering", body: "" },
+      { name: "Elias Nahiry", role: "Dashboard", body: "" },
     ],
   },
 

@@ -664,6 +664,36 @@ body.no-scroll { overflow: hidden; }
   font-weight: 800;
 }
 
+/* — avsluttende refleksjon: ett kort per person — */
+.refl-list { display: grid; gap: 20px; }
+.refl-person {
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-top: 4px solid var(--color-accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: clamp(22px, 3vw, 36px);
+}
+.refl-person-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-bottom: 16px;
+}
+.refl-person-head h2 { font-size: clamp(21px, 2vw + 12px, 26px); margin: 0; }
+.refl-role {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+.refl-person-body { max-width: 72ch; }
+.refl-person-body p { font-size: 16px; line-height: 1.7; margin: 0; color: var(--color-muted); overflow-wrap: anywhere; }
+.refl-person-body p + p { margin-top: 14px; }
+.refl-person-body p.refl-empty { font-style: italic; }
+
 /* — footer — */
 .site-footer {
   background: var(--color-ink);
